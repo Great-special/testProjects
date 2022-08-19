@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete Team | CRM
+{% endblock title %}
+
+{% block content %}
+
+<p>Are you sure you want to delete {{team}}?</p>
+
+<a href="{% url 'team-detail' team.id%}">Cancel</a>
+
+
+<form method="post" action="">
+    {% csrf_token %}
+    <button type="submit">Confirm</button>
+</form>
+
+{% endblock content %}
+
+

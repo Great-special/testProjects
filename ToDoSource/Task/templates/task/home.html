@@ -1,0 +1,28 @@
+{% extends 'task/base.html' %}
+
+{% block content %}
+
+<div class="center-column">
+
+    <a class="btn btn-primary" href="{% url 'create' %}">Add Task</a>
+    
+</div>
+
+
+<div class="center-column">
+    {% for task in tasks %}
+        <div class="item-row">
+            <a class="btn btn-sm btn-info" href="{% url 'update' task.id %}">Update</a> 
+            <a class="btn btn-sm btn-danger" href="{% url 'delete' task.id %}">Delete</a>
+
+            {% if task.completed == True %}
+            <strike>{{task}}</strike>
+            {% else %}
+            <span>{{task}}</span>
+            {% endif %}
+            
+        </div>
+    {% endfor %}
+    </div>
+
+{% endblock content %}

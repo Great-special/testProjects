@@ -1,0 +1,17 @@
+{% extends 'task/base.html' %}
+
+{% block content %}
+
+<div class="center-column">
+    <h2> Create ToDo List </h2> 
+
+    <form method="POST" action="{% url 'create' %}">
+        {% csrf_token %}
+        
+        {{form.as_p}}
+        <button class="btn btn-info" type="submit">Add Task</button>
+    </form>
+</div>
+
+
+{% endblock content %}

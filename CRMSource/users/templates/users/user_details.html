@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  User Details | CRM
+{% endblock title %}
+
+{% block content %}
+
+<section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="lg:w-4/5 mx-auto flex flex-wrap">
+      <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
+        <h2 class="text-sm title-font text-gray-500 tracking-widest">User DETAILS</h2>
+        <h1 class="text-white text-3xl title-font font-medium mb-4">{{user.username}}</h1>
+
+        <div class="flex mb-4">
+          <a class="flex-grow text-indigo-400 border-b-2 border-indigo-500 py-2 text-lg px-1">
+            Over View
+          </a>
+          <a href="#" class="flex-grow border-b-2 border-gray-800 py-2 text-lg px-1">
+            Edit
+          </a>
+        </div>
+        
+        <div class="flex border-t border-gray-800 py-2">
+          <span class="text-gray-500">Full Name</span>
+          <span class="ml-auto text-white">{{user.first_name}} {{user.lastname}}</span>
+        </div>
+        <div class="flex border-t border-gray-800 py-2">
+          <span class="text-gray-500">Email</span>
+          <span class="ml-auto text-white">{{user.email}}</span>
+        </div>
+        <div class="flex border-t border-gray-800 py-2">
+          <span class="text-gray-500">Manager</span>
+          <span class="ml-auto text-white">{{lead.manager}}</span>
+        </div>
+        {% comment %} <div class="flex border-t border-gray-800 py-2">
+          <span class="text-gray-500">Phone No</span>
+          <span class="ml-auto text-white">{{user.phone}}</span>
+        </div>
+        <div class="flex border-t border-b mb-6 border-gray-800 py-2">
+          <span class="text-gray-500">user</span>
+          <span class="ml-auto text-white">{{user.}}</span>
+        </div> {% endcomment %}
+        <div class="flex ">
+          <a href="#" class="w-1/2 mt-3 mr-5 flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+            Delete
+          </a>
+          {% if request.user.is_organisor %}
+          <a href="{% url 'create-team' %}" class="w-1/2 mt-3  flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+            Add Team
+          </a>
+          {% endif %}
+    
+        </div>
+      </div>
+      <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
+    </div>
+    <div class="mb-2 py-4 flex-between items-center border-gray-200">
+      <a class="text-gray-300" href="{% url 'user-add' %}"> Add Managers </a> | <a class="text-gray-300" href="{% url 'manager-section' %}"> Managers Section</a>
+    </div>
+  </div>
+</section>
+
+  {% endblock content %}

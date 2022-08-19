@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Create Team | CRM
+{% endblock title %}
+
+{% block content %}
+<h1>Create A New Team  | 
+    <a href="{% url 'team-section' %}">View Teams</a> 
+</h1>
+
+<hr> 
+<br>
+<form method='post'>
+    {% csrf_token %}
+    {{form.as_p }}
+    <button type='submit'>Submit</button>
+</form>
+
+<hr>
+
+
+
+{% comment %} <a href="{% url 'leads:lead-section' %}"> Back </a> {% endcomment %}
+
+
+{% endblock content %}
