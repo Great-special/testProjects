@@ -1,35 +1,46 @@
+{% extends "base.html" %}
 {% load static %}
 
-<!DOCTYPE html>
-<html>
+{% block title %}
+    Mail Sender | ExpressMail
+{% endblock title %}
+
+{% block Content %}
+
 	<head>
 		<meta charset="utf-8">
 		<title>Mail Sender</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-		<!-- MATERIAL DESIGN ICONIC FONT -->
-		<link rel="stylesheet" href="{% static 'fonts/material-design-iconic-font/css/material-design-iconic-font.min.css' %}">
-		
-		<!-- STYLE CSS --> 
 		<link rel="stylesheet" href="{% static 'css/style.css' %}">
 	</head>
 
 	<body>
-
 		<div class="wrapper">
 			<div class="inner">
 				<form method="post">
                     {% csrf_token %}
 					<h3>Send A Mail</h3>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+					<p>Be sure to enable two-factor auth in your email settings.</p>
+					<label class="form-group">
+						<input type="email" class="form-control" name="sender-email"  required>
+						<span>sender</span>
+						<span class="border"></span>
+					</label>
+
 					<label class="form-group">
 						<input type="text" class="form-control" name="subject"  required>
-						<span> Subject</span>
+						<span> subject</span>
+						<span class="border"></span>
+					</label>
+
+					<label class="form-group">
+						<input type="email" class="form-control" name="email"  required>
+						<span> recipient</span>
 						<span class="border"></span>
 					</label>
 					
 					<label class="form-group" >
-						<textarea name="" id="" cols="30" rows="10" class="form-control" name="message" required></textarea>
+						<textarea cols="30" rows="2" class="form-control" name="message" required></textarea>
 						<span for="">Your Message</span>
 						<span class="border"></span>
 					</label>
@@ -41,4 +52,5 @@
 		</div>
 		
 	</body>
-</html>
+
+{% endblock Content %}

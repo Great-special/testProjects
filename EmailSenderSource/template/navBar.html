@@ -1,0 +1,46 @@
+
+<nav class="navbar fixed-top justify-content-between navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Mail Sender</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        
+        <li class="nav-item active"> 
+            <a class="nav-link" href="{% url 'create-mail'  %}">AutomateMail</a>
+        </li> 
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'express-mail'  %}">ExpressMail</a>
+        </li><br>
+        <li class="nav-item active">
+            <a class="nav-link" href="{% url 'getMail-Address'  %}">ReceiverAddress</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'list-mail'  %}">Messages<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'list-address'  %}">Recipient<span class="sr-only">(current)</span></a>
+        </li>
+        <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+            Dropdown link
+          </a>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a>
+          </div>
+        </li> -->
+      </ul>
+
+      <ul>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'list-address'  %}">Recipient</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+
