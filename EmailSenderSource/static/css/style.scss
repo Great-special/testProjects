@@ -23,9 +23,15 @@ body {
 }
 input, textarea, select, button {
 	font-family: "Montserrat-Regular";
-	color: #000;
+	color: #fff;
 	font-size: 15px;
 }
+
+h3, div, a {
+	font-family: "Montserrat-Regular";
+	color: #fff;
+}
+
 p, h1, h2, h3, h4, h5, h6, ul {
 	margin: 0;
 }
@@ -52,7 +58,7 @@ a:hover {
 .inner {
 	max-width: 758px;
 	margin: auto;
-	background: #39459b;
+	background: #2771F3;
 	border: 10px solid #0d99d7;
 	padding: 77px 99px 87px;
 	box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
@@ -215,7 +221,7 @@ button {
 	    -o-box-shadow: none;
 	}
 	.wrapper {
-		background: #39459b;
+		background: #2771F3;
 		border: 10px solid #0d99d7;
 	}
 }

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block Content %} 
+
+{% load crispy_forms_tags %}         
+
+<head>
+	<meta charset="utf-8">
+	<title>{% block title %}
+      Mail  Sender | Register
+	{% endblock title %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+	<div class="wrapper">
+		<div class="inner">
+			<div>
+				{% if message %}
+					{{message}}
+				{% endif %}
+			</div>
+			<form method="post">
+				{% csrf_token %}
+				<h3>Register</h3>
+                {{ form|crispy }}
+
+                <button type="submit">Register</button>
+                <p class="text-center">If you already have an account, <a href="{% url 'login' %}"> login</a> instead.</p>
+			</form>
+		</div>
+	</div>
+	
+</body>
+
+
+{% endblock %}
