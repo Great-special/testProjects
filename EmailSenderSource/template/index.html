@@ -35,9 +35,10 @@
 				<form method="post">
                     {% csrf_token %}
 					<h3>Send A Mail</h3>
-					<p>Be sure to enable two-factor auth in your email settings.</p>
+					<p>Be sure to enable two-factor auth in your email settings.<br>
+					If you don't have that enabled, you can sign up to use ours and send your mails</p>
 					<label class="form-group">
-						<input type="email" class="form-control" name="sender-email"  required>
+						<input type="email" class="form-control" name="sender-email" >
 						<span>sender</span>
 						<span class="border"></span>
 					</label>
@@ -54,6 +55,12 @@
 						<span class="border"></span>
 					</label>
 					
+					<label class="form-group">
+						<input type="password" class="form-control" name="password"  required>
+						<span>Second Factor Password</span>
+						<span class="border"></span>
+					</label>
+
 					<label class="form-group" >
 						<textarea cols="30" rows="2" class="form-control" name="message" required></textarea>
 						<span for="">Your Message</span>

@@ -6,13 +6,13 @@ from . import models
 class MessageForm(forms.ModelForm):
     class Meta:
         model = models.Message
-        fields = ['subject', 'body', 'repeat', 'schedule']
+        fields = ['subject', 'body', 'receiver','repeat', 'schedule']
 
 
 class EmailsForm(forms.ModelForm):
     class Meta:
         model = models.EMails
-        fields = ['email']
+        fields = ['email', 'group']
 
 class UserRegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True)

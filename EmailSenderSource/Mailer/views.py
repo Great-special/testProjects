@@ -5,9 +5,11 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm 
 from  . import models, forms
+from django.contrib.auth.decorators import login_required
 
 from hidden import mail_pass
 from .alert import mailSender
+import schedule 
 
 # Create your views here.
 
@@ -21,6 +23,8 @@ def index(request):
         receiver = request.POST.get("email")
         
         print(message, sender, receiver, subject)
+        if not sender:
+            sender = 'tradevolatile@gmail.com'
         
         mailSender(
             subject=subject, 
@@ -41,26 +45,28 @@ def index(request):
         return redirect('express-mail')
     return render(request, template_name='index.html')
 
+@login_required(login_url="login")
 def getEmails(request):
+    form = forms.EmailsForm()
+    
     if request.user.is_authenticated:
         user = request.user
     if request.method == 'POST':
         email = request.POST.get('email')
         MailingList.append(email)
-        print(email, MailingList)
         
         for mail in MailingList:
             models.EMails.objects.create(email=mail, user=user)
             messages.add_message(request, messages.INFO, "your email address has been added")
         
-        context = {'emails':MailingList}
-        return render(request, template_name='mail form.html', context=context)
+        context = {'form': form}
+        return render(request, template_name='add_email.html', context=context)
     else:
-    
-        return render(request, template_name='mail form.html')
+        context = {'form': form}
+        return render(request, template_name='add_email.html', context=context)
 
 
-
+@login_required(login_url="login")
 def listMail(request):
     if request.user.is_authenticated:
         messages = models.Message.objects.filter(user=request.user)
@@ -71,7 +77,7 @@ def listMail(request):
     
     return render(request, template_name='list_mail.html', context=context)
 
-
+@login_required(login_url="login")
 def createMail(request):
     
     if request.user.is_authenticated:
@@ -106,6 +112,7 @@ def createMail(request):
     
     return render(request, template_name='mForm.html', context=context)
 
+@login_required(login_url="login")
 def updateMail(request, pk):
     message = models.Message.objects.get(id=pk)
     message_form = forms.MessageForm(instance=message)
@@ -117,16 +124,21 @@ def updateMail(request, pk):
             message_form.save()
             messages.add_message(request, messages.INFO, f"You have successfully updated your message {subject}")
             return redirect('list-mail')
-  
-    return render(request, template_name='mForm.html')
+    
+    context = {
+        'form': message_form,
+    }
+    return render(request, template_name='mForm.html', context=context)
 
 
+@login_required(login_url="login")
 def deleteMail(request, pk):
     message = models.Message.objects.get(id=pk)
     if request.POST:
         message.delete()
     
 
+@login_required(login_url="login")
 def listAddress(request):
     address = models.EMails.objects.all()
     context = {
@@ -135,6 +147,7 @@ def listAddress(request):
     
     return render(request, template_name='list_adr.html', context=context)
 
+@login_required(login_url="login")
 def updateAddress(request, pk):
     address = models.EMails.objects.get(pk=pk)
     address_form = forms.EmailsForm(instance=address)
@@ -144,6 +157,12 @@ def updateAddress(request, pk):
         if address_form.is_valid():
             address_form.save()
             return redirect('list-address')
+    
+    context = {
+        'form':address_form,
+    }
+    
+    return render(request, template_name='update_address.html', context=context)
 
 
 def userRegister(request):
@@ -191,21 +210,47 @@ def userLogout(request):
 
 
 
-
+MESSAGES = []
 
 
 # Automatically send Mails on scheduled
 def sendAutoMail():
+    sender = 'tradevolatile@gmail.com'
     mails = models.Message.objects.all()
     adr = models.EMails.objects.all()
+    user = models.User.objects.all()
+    # print(user)
+    # print(type(user))
+    if user:
+        for u in user:
+            if not u.is_superuser:
+                username = u.username
+                if mails:
+                    for mail in mails:
+                        if mail.user == username: 
+                            subject = mail.subject
+                            message = mail.body
+                            repeat_day = mail.schedule
+                            
+                            MESSAGES.append(
+                                {
+                                 "user": username,
+                                 "message":[subject, subject, repeat_day]
+                                }
+                            )
+                            
     if adr:
         for item in adr:
-            MailingList.append(item)
-    print(MailingList)
-    if mails:
-        for mail in mails:
-            if mail.schedule == 'Monday':
-                print(mail.subject, mail.body)
+            if item.user == username:
+                receiver = item.user
                 
-                
+                mailSender(
+                subject=subject, 
+                message=message, 
+                sender=sender, 
+                receiver=receiver, 
+                password=mail_pass
+            )
+
+                   
 # sendAutoMail()

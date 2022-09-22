@@ -33,20 +33,28 @@
 				{% csrf_token %}
 				<h3>Add Email Address</h3>
 				<p>Add as many address as you want </p>
-				
-				<label class="form-group">
+				{% load crispy_forms_tags %}
+				<!-- <label class="form-group">
 					<input type="text" class="form-control" name="email"  required>
 					<span for="">Your Mail</span>
 					<span class="border"></span>
 				</label>
-		
+
+				<label class="form-group">
+					<input type="text" class="form-control" name="email"  required>
+					<span for="">Your Mail</span>
+					<span class="border"></span>
+				</label> -->
+
+				{{ form | crispy }}
+				
 				<button type="submit">Add
 					<i class="zmdi zmdi-arrow-right"></i>
 				</button>
-					
-				
 			</form>
-			
+			<button  type="submit"><a href="{% url 'create-mail' %}">Done</a>
+				<i class="zmdi zmdi-arrow-right"></i>
+			</button>
 		</div>
 	</div>
 	

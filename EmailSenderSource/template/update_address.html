@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block Content %}
+<section class="text-gray-400 bg-gray-900 body-font overflow-hidden">
+    <div class="container px-5 py-24 mx-auto media-body">
+      <div class="lg:w-4/5 mx-auto flex flex-wrap">
+        <div class="lg:w-1/2 w-full lg:pr-10 lg:py-12 mb-1 lg:mb-0">
+          <h2 class="text-sm title-font text-gray-700 tracking-widest">Address Details</h2>
+          <h1 class="text-white text-3xl title-font font-medium mb-4">{{address}}</h1>
+          {% load crispy_forms_tags %}
+          <form method='post'>
+            {% csrf_token %}
+            {{form | crispy }}
+            <button type='submit'>Submit</button>
+        </form>
+        
+          <div class="flex">
+  
+            <a href="{% url 'delete-address' address.id %}" class="w-1/2 mt-3 flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+              Delete
+            </a>
+            <!-- {% comment %} <a href="{% url 'leads:lead-section' %}" class="rounded-full w-10 h-10 bg-gray-800 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4">
+            Back
+            </a> {% endcomment %} -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+{% endblock Content %}
+

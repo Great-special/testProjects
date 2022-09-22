@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 
+from multiselectfield import MultiSelectField
+
 # from django.contrib.auth.models import AbstractUser
 
 
@@ -9,7 +11,22 @@ from django.contrib.auth import authenticate
 
 def get_user():
     users = User.objects.all()
-    
+
+
+
+class EMails(models.Model):
+    Group_choice = (
+        ('A', 'Group A'),
+        ('B', 'Group B'),
+        ('C', 'Group C'),
+        ('D', 'Group D'),
+    )
+
+    email = models.EmailField(max_length=150)
+    user = models.ForeignKey(User, on_delete = models.CASCADE, default=1)
+    group = models.CharField(max_length=3, choices=Group_choice, default=1)
+    def __str__(self):
+        return self.email
 
 
 class Message(models.Model):
@@ -25,8 +42,16 @@ class Message(models.Model):
         ('Everyday', 'Everyday')
     )
     
+    Group_choice = (
+        ('A', 'Group A'),
+        ('B', 'Group B'),
+        ('C', 'Group C'),
+        ('D', 'Group D'),
+    )
+    
     subject = models.CharField(max_length=125)
     body = models.TextField()
+    receiver= models.CharField(max_length=3, choices=Group_choice, default=1)
     repeat = models.BooleanField(default=True)
     schedule = models.CharField(choices=ScheduleDays, max_length = 100, default=0)
     user = models.ForeignKey(User, on_delete = models.CASCADE, default=1)
@@ -40,11 +65,3 @@ class Message(models.Model):
     
     def __str__(self):
         return self.subject
-    
-
-    
-class EMails(models.Model):
-    email = models.EmailField(max_length=150)
-    user = models.ForeignKey(User, on_delete = models.CASCADE, default=1)
-    def __str__(self):
-        return self.email

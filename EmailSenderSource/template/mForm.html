@@ -34,6 +34,7 @@
 					<h3>Send A Mail</h3>
 					{{ form.subject|as_crispy_field }}
 					{{ form.body|as_crispy_field }}
+					{{ form.receiver|as_crispy_field }}
 					{{ form.repeat|as_crispy_field }}
 					{% if form.repeat %}
 					{{ form.schedule|as_crispy_field }}

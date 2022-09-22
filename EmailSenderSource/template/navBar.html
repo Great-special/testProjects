@@ -1,6 +1,6 @@
 
 <nav class="navbar fixed-top justify-content-between navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="#">Mail Sender</a>
+    <a class="navbar-brand" href="{% url 'create-mail' %}">Mail Sender</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -41,7 +41,7 @@
         <a>Welcome, {{ user.username }}</a>
         <a href="{% url 'logout' %}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">SignOut</a>
         {% else %}
-        <a href="{% url 'register' %}" class="btn btn-outline-danger btn-sm active" role="button" aria-pressed="true">Register</a>
+        <a href="{% url 'register' %}" class="btn btn-outline-danger btn-sm active" role="button" aria-pressed="true">SignUp</a>
         <a href="{% url 'login' %}" class="btn btn-primary btn-sm active" role="button" aria-pressed="true">SignIn</a>
         {% endif %}  
       </span>
