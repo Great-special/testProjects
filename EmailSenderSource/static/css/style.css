@@ -74,6 +74,7 @@ h3 {
   text-align: center;
   margin-bottom: 12px; }
 
+
 p {
   text-align: center;
   padding: 0 10px;
@@ -183,6 +184,11 @@ button {
     button:hover i {
       -webkit-transform: translateX(4px);
       transform: translateX(4px); }
+
+.select form-control{
+  color: #fff;
+}
+
 
 @media (max-width: 767px) {
   h3 {

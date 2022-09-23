@@ -32,7 +32,8 @@
 			<form method="post">
 				{% csrf_token %}
 				<h3>Add Email Address</h3>
-				<p>Add as many address as you want </p>
+				<p>Add as many address as you want, <br>
+					Put the emails that should receive the same mails together in the same group </p>
 				{% load crispy_forms_tags %}
 				<!-- <label class="form-group">
 					<input type="text" class="form-control" name="email"  required>

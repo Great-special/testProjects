@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Mail Sender | Delete Mail
+{% endblock title %}
+
+{% block Content %}
+
+
+<style>
+    body{
+        background-color:#0d99d7;
+        color:#fff;
+    }
+</style>
+
+<div class="container flex-col m-auto p-5 justify-start">
+    <p class="text-white text-lg title-font font-medium text-start p-5 -mb-14"> Are you sure you want to delete {{ msg }}?</p>
+
+    <div class="flex flex-row m-3">
+        <a class="text-white btn text-center p-5 hover:bg-gray-300" href="{% url 'list-mail' %}">Cancel</a>
+    <form method="post" action="">
+        {% csrf_token %}
+        <button class="m-5" type="submit">Confirm</button>
+    </form>
+    </div> 
+</div>
+
+
+
+{% endblock Content %}
+
+

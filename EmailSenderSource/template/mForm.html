@@ -3,9 +3,15 @@
 
 
 {% block Content %}
+<head>
+	<meta charset="utf-8">
 	<title>{% block title %}
 		Mail Sender | AutomateMail
 	{% endblock title %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+	
 
 
 	<body>
@@ -29,9 +35,13 @@
 					{% endif %}
 					</ul>
 				{% endblock %}
+				<h3>Send A Mail</h3>
+				<p>You can either send the mail by scheduled todays to everyone or<br>
+					To a group of address</p>
+					
 				<form method="post">
                     {% csrf_token %}
-					<h3>Send A Mail</h3>
+					
 					{{ form.subject|as_crispy_field }}
 					{{ form.body|as_crispy_field }}
 					{{ form.receiver|as_crispy_field }}

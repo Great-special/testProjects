@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 from hidden import mail_pass
 from .alert import mailSender
+from .auto_sender import sendAutoMail
 import schedule 
 
 # Create your views here.
@@ -50,12 +51,14 @@ def getEmails(request):
     form = forms.EmailsForm()
     
     if request.user.is_authenticated:
+        # setting the user field to current user
         user = request.user
     if request.method == 'POST':
         email = request.POST.get('email')
         MailingList.append(email)
         
         for mail in MailingList:
+            # saving the added data to the database using the model objects manager
             models.EMails.objects.create(email=mail, user=user)
             messages.add_message(request, messages.INFO, "your email address has been added")
         
@@ -81,6 +84,7 @@ def listMail(request):
 def createMail(request):
     
     if request.user.is_authenticated:
+        # setting the user field to current user
         user = request.user
         
     message_form = forms.MessageForm()
@@ -95,6 +99,7 @@ def createMail(request):
             repeat = message_form.cleaned_data['repeat']
             schedule = message_form.cleaned_data['schedule']
             
+            # saving the added data to the database using the model objects manager
             models.Message.objects.create(
                 subject=subject,
                 body=body,
@@ -112,6 +117,7 @@ def createMail(request):
     
     return render(request, template_name='mForm.html', context=context)
 
+
 @login_required(login_url="login")
 def updateMail(request, pk):
     message = models.Message.objects.get(id=pk)
@@ -127,8 +133,10 @@ def updateMail(request, pk):
     
     context = {
         'form': message_form,
+        'message': message
     }
-    return render(request, template_name='mForm.html', context=context)
+    return render(request, template_name='update_message.html', context=context)
+
 
 
 @login_required(login_url="login")
@@ -136,7 +144,12 @@ def deleteMail(request, pk):
     message = models.Message.objects.get(id=pk)
     if request.POST:
         message.delete()
+        return redirect('list-mail')
     
+    context = {
+        'msg': message,
+    }
+    return render(request, template_name='delete_mail.html', context=context)
 
 @login_required(login_url="login")
 def listAddress(request):
@@ -149,7 +162,7 @@ def listAddress(request):
 
 @login_required(login_url="login")
 def updateAddress(request, pk):
-    address = models.EMails.objects.get(pk=pk)
+    address = models.EMails.objects.get(id=pk)
     address_form = forms.EmailsForm(instance=address)
     
     if request.method == 'POST':
@@ -160,9 +173,23 @@ def updateAddress(request, pk):
     
     context = {
         'form':address_form,
+        'address':address
     }
     
     return render(request, template_name='update_address.html', context=context)
+
+
+@login_required(login_url="login")
+def deleteAddress(request, pk):
+    address = models.EMails.objects.get(pk=pk)
+    if request.POST:
+        address.delete()
+        return redirect("list-address")
+    
+    context = {
+        'adr': address,
+    }
+    return render(request, template_name='delete_address.html', context=context)
 
 
 def userRegister(request):
@@ -207,50 +234,4 @@ def userLogout(request):
 
 
 
-
-
-
-MESSAGES = []
-
-
-# Automatically send Mails on scheduled
-def sendAutoMail():
-    sender = 'tradevolatile@gmail.com'
-    mails = models.Message.objects.all()
-    adr = models.EMails.objects.all()
-    user = models.User.objects.all()
-    # print(user)
-    # print(type(user))
-    if user:
-        for u in user:
-            if not u.is_superuser:
-                username = u.username
-                if mails:
-                    for mail in mails:
-                        if mail.user == username: 
-                            subject = mail.subject
-                            message = mail.body
-                            repeat_day = mail.schedule
-                            
-                            MESSAGES.append(
-                                {
-                                 "user": username,
-                                 "message":[subject, subject, repeat_day]
-                                }
-                            )
-                            
-    if adr:
-        for item in adr:
-            if item.user == username:
-                receiver = item.user
-                
-                mailSender(
-                subject=subject, 
-                message=message, 
-                sender=sender, 
-                receiver=receiver, 
-                password=mail_pass
-            )
-
-                   
-# sendAutoMail()
+sendAutoMail()

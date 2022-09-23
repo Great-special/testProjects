@@ -24,7 +24,7 @@ class EMails(models.Model):
 
     email = models.EmailField(max_length=150)
     user = models.ForeignKey(User, on_delete = models.CASCADE, default=1)
-    group = models.CharField(max_length=3, choices=Group_choice, default=1)
+    group = models.CharField(max_length=3, choices=Group_choice, default='A')
     def __str__(self):
         return self.email
 
@@ -51,10 +51,10 @@ class Message(models.Model):
     
     subject = models.CharField(max_length=125)
     body = models.TextField()
-    receiver= models.CharField(max_length=3, choices=Group_choice, default=1)
+    receiver= models.CharField(max_length=3, choices=Group_choice, default='A')
     repeat = models.BooleanField(default=True)
-    schedule = models.CharField(choices=ScheduleDays, max_length = 100, default=0)
-    user = models.ForeignKey(User, on_delete = models.CASCADE, default=1)
+    schedule = models.CharField(choices=ScheduleDays, max_length = 100, default='Monday')
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
     
     # Creating custom permissions
     # class Meta:
