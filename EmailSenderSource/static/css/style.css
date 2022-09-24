@@ -185,10 +185,6 @@ button {
       -webkit-transform: translateX(4px);
       transform: translateX(4px); }
 
-.select form-control{
-  color: #fff;
-}
-
 
 @media (max-width: 767px) {
   h3 {

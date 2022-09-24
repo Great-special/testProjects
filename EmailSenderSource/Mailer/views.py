@@ -9,8 +9,7 @@ from django.contrib.auth.decorators import login_required
 
 from hidden import mail_pass
 from .alert import mailSender
-from .auto_sender import sendAutoMail
-import schedule 
+from .auto_sender import sender
 
 # Create your views here.
 
@@ -234,4 +233,4 @@ def userLogout(request):
 
 
 
-sendAutoMail()
+sender()
