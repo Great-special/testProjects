@@ -1,0 +1,14 @@
+asgiref==3.5.2
+Django==4.0.6
+django-crispy-forms==1.14.0
+django-multiselectfield2==0.0.1
+future==0.18.2
+MetaTrader5==5.0.36
+mpl-finance==0.10.1
+openpyxl==3.0.9
+pandas-ta==0.3.14b0
+pytz==2022.1
+schedule==1.1.0
+sqlparse==0.4.2
+TA-Lib @ file:///C:/Users/GREAT%20SPEED/Desktop/PROJECTS/Part%202/trade%20crypto/TA_Lib-0.4.24-cp39-cp39-win_amd64.whl
+tzdata==2022.1
